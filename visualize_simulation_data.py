@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.realpath(__file__))+'/radiosoft-srw_python')
-import uti_plot_com 
 from data_file_handler import extract_simulation_data
 
 def get_args():
