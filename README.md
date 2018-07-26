@@ -21,4 +21,4 @@ This image shows maximum intensity at each point of scan.
 
 Image below shows what beam looks like at watchpoint for each points of scan. The coordinate at top of subplots represents the steps in scan
 
-
+![scan](./images/scan_intensity.png)
