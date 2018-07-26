@@ -13,23 +13,23 @@ import argparse
 import h5py
 
 def get_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-xi', '--x_initial', type = int, help = 'starting x axis value', required = True)
-    parser.add_argument('-xf', '--x_final', type = int, help = 'final x axis value', required = True)
-    parser.add_argument('-xs', '--x_steps', type = int, help = 'number of steps in x axis', required = True)
-    parser.add_argument('-yi', '--y_initial', type = int, help = 'starting y axis value', required = True)
-    parser.add_argument('-yf', '--y_final', type = int, help = 'final y axis value', required = True)
-    parser.add_argument('-ys', '--y_steps', type = int, help = 'number of steps in y axis', required = True)
-    parser.add_argument('-id', '--simid', type = str, help = 'simulation id, 8 digit from address in browser', required = True)
-    args = parser.parse_args()
-    xi_arg = args.x_initial
-    xf_arg = args.x_final
-    xs_arg = args.x_steps
-    yi_arg = args.y_initial
-    yf_arg = args.y_final
-    ys_arg = args.y_steps
-    id_arg = args.simid
-    return xi_arg, xf_arg, xs_arg, yi_arg, yf_arg, ys_arg, id_arg
+	parser = argparse.ArgumentParser()
+	parser.add_argument('-xi', '--x_initial', type = int, help = 'starting x axis value', required = True)
+	parser.add_argument('-xf', '--x_final', type = int, help = 'final x axis value', required = True)
+	parser.add_argument('-xs', '--x_steps', type = int, help = 'number of steps in x axis', required = True)
+	parser.add_argument('-yi', '--y_initial', type = int, help = 'starting y axis value', required = True)
+	parser.add_argument('-yf', '--y_final', type = int, help = 'final y axis value', required = True)
+	parser.add_argument('-ys', '--y_steps', type = int, help = 'number of steps in y axis', required = True)
+	parser.add_argument('-id', '--simid', type = str, help = 'simulation id, 8 digit from address in browser', required = True)
+	args = parser.parse_args()
+	xi_arg = args.x_initial
+	xf_arg = args.x_final
+	xs_arg = args.x_steps
+	yi_arg = args.y_initial
+	yf_arg = args.y_final
+	ys_arg = args.y_steps
+	id_arg = args.simid
+	return xi_arg, xf_arg, xs_arg, yi_arg, yf_arg, ys_arg, id_arg
 xi, xf, x_steps, yi, yf, y_steps, sim_id = get_args()
 
 # to store temporary data
@@ -56,8 +56,8 @@ db = Broker.named('temp')
 RE.subscribe(db.insert)
 
 class Slit(Device):
-    xmotor = Cpt(SynAxis)
-    ymotor = Cpt(SynAxis)
+	xmotor = Cpt(SynAxis)
+	ymotor = Cpt(SynAxis)
 # import pdb; pdb.set_trace()
 slit = Slit(name = 'slit')
 # hence, the name of motors will be slit_xmotor and slit_ymotor respectively
@@ -80,7 +80,9 @@ c = 0
 for i, row in enumerate(ax):
 	for j, col in enumerate(row):
 		col.imshow(hf5[keys[c]], aspect = 'auto')
-		col.set_title("(%d, %d)" %(i+1, j+1))
+		col.set_title("(%d, %d)" %(i+1, j+1), fontsize = 6)
+		if not (i==0 and j==0):
+			col.tick_params(labelbottom = False, labelleft = False)
 		c += 1
 fig.suptitle("x range: %s  &  y range: %s" %(hf5['x_range'][:], hf5['y_range'][:]), fontsize = 10)
 fig.tight_layout()
