@@ -7,9 +7,7 @@ matplotlib.use("Agg")  # so that matplotlib doesnot look for display environment
 import matplotlib.pyplot as plt
 import numpy as np
 import sys, os
-sys.path.insert(0, os.path.dirname(os.path.realpath(__file__))+'/radiosoft-srw_python')
-import uti_plot_com 
-from data_file_handler import extract_simulation_data
+from functions import extract_simulation_data
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -19,7 +17,6 @@ def get_args():
     return data_file_arg
 
 def plot_simulation_data(data_file):
-    # the input is a dictionary that comes from above extract simulation data
     data_dict = extract_simulation_data(data_file)
     img = data_dict['data']
     # return tuple (row,column)
@@ -41,8 +38,8 @@ def plot_simulation_data(data_file):
     ax2.tick_params(labelleft=False)
     ax3.plot(horizontal)
     ax3.tick_params(labelbottom=False)
-    ax4.text(0, 0.6, "Horizontal range (%.3f, %.3f) um\nVertical range (%.3f, %.3f) um" %(data_dict['horizontal_range'][0]*10**6, data_dict['horizontal_range'][1]*10**6,\
-        data_dict['vertical_range'][0]*10**6, data_dict['vertical_range'][1]*10**6), fontsize = 6)
+    ax4.text(0, 0.6, "Horizontal range (%.3f, %.3f) um\nVertical range (%.3f, %.3f) um" %(data_dict['x_range'][0]*10**6, data_dict['x_range'][1]*10**6,\
+        data_dict['y_range'][0]*10**6, data_dict['y_range'][1]*10**6), fontsize = 6)
     ax4.tick_params(labelbottom = False, labelleft = False)
     ax4.set_axis_off()
 

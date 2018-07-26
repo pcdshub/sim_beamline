@@ -6,12 +6,13 @@ from functions import extract_simulation_data
 import os
 import numpy as np
 import happi
+import h5py
 
 class LclsDetector(Device):
 
 	maxim = Component(Signal)
 
-	def __init__(self, name, x_motor, x_field, y_motor, y_field, sim_id, sirepo_sim_address='http://10.10.10.10:8000', **kwargs):
+	def __init__(self, name, x_motor, x_field, y_motor, y_field, sim_id, sirepo_sim_address='http://10.10.10.10:8000', image_file = None, **kwargs):
 		super().__init__(name=name, **kwargs)
 		self._x_motor = x_motor
 		self._y_motor = y_motor
@@ -19,6 +20,7 @@ class LclsDetector(Device):
 		self._y_field = y_field
 		self._sim_id = sim_id
 		self._sirepo_sim_address = sirepo_sim_address
+		self._image_file = image_file
 
 	@property
 	def hints(self):
@@ -28,19 +30,18 @@ class LclsDetector(Device):
 	def trigger(self):
 		super().trigger()
 
-		uid = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
-		sim_id = self._sim_id
+		uid = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S.%f")
 		sim = Simulate(self._sirepo_sim_address)
-		data = sim.auth('srw', sim_id)
+		data = sim.auth('srw', self._sim_id)
 
 		# all simulated componets
-		sim_fee_m1h = sim.find_element(data['models']['beamline'], 'title', 'fee_m1h')
-		sim_fee_m2h = sim.find_element(data['models']['beamline'], 'title', 'fee_m2h')
-		sim_hx2_slits = sim.find_element(data['models']['beamline'], 'title', 'hx2_slits')
+		# sim_fee_m1h = sim.find_element(data['models']['beamline'], 'title', 'fee_m1h')
+		# sim_fee_m2h = sim.find_element(data['models']['beamline'], 'title', 'fee_m2h')
+		# sim_hx2_slits = sim.find_element(data['models']['beamline'], 'title', 'hx2_slits')
 		sim_um6_slits = sim.find_element(data['models']['beamline'], 'title', 'um6_slits')
-		sim_xrt_m1h = sim.find_element(data['models']['beamline'], 'title', 'xrt_m1h')
-		sim_xrt_m2h = sim.find_element(data['models']['beamline'], 'title', 'xrt_m2h')
-		sim_hdx_dg2_slits = sim.find_element(data['models']['beamline'], 'title', 'hxd_dg2_slits')
+		# sim_xrt_m1h = sim.find_element(data['models']['beamline'], 'title', 'xrt_m1h')
+		# sim_xrt_m2h = sim.find_element(data['models']['beamline'], 'title', 'xrt_m2h')
+		# sim_hdx_dg2_slits = sim.find_element(data['models']['beamline'], 'title', 'hxd_dg2_slits')
 
 		# reading current value of motors
 		x = self._x_motor.read()[self._x_field]['value']
@@ -52,34 +53,28 @@ class LclsDetector(Device):
 		# setting values of devices in beamline according to current beamline value
 		client = happi.Client(path = './happi_db.json')	
 		# all devices from happi database
-		fee_m1h = client.find_device(name = 'fee_m1h')
-		fee_m2h = client.find_device(name = 'fee_m2h')
-		hx2_slits = client.find_device(name = 'hx2_slits')
+		# fee_m1h = client.find_device(name = 'fee_m1h')
+		# fee_m2h = client.find_device(name = 'fee_m2h')
+		# hx2_slits = client.find_device(name = 'hx2_slits')
 		um6_slits = client.find_device(name = "um6_slits")
-		xrt_m1h = client.find_device(name = 'xrt_m1h')
-		xrt_m2h = client.find_device(name = 'xrt_m2h')
-		hxd_dg2_slits = client.find_device(name = 'hxd_dg2_slits')
+		# xrt_m1h = client.find_device(name = 'xrt_m1h')
+		# xrt_m2h = client.find_device(name = 'xrt_m2h')
+		# hxd_dg2_slits = client.find_device(name = 'hxd_dg2_slits')
 		# getting value from these devices and set to simulated ones
-		sim_fee_m1h['position'] = fee_m1h.z
-		sim_fee_m2h['position'] = fee_m2h.z
-		sim_hx2_slits['position'] = hx2_slits.z
+		# sim_fee_m1h['position'] = fee_m1h.z
+		# sim_fee_m2h['position'] = fee_m2h.z
+		# sim_hx2_slits['position'] = hx2_slits.z
 		sim_um6_slits['position'] = um6_slits.z
-		sim_xrt_m1h['position'] = xrt_m1h.z
-		sim_xrt_m2h['position'] = xrt_m2h.z		
-		sim_hdx_dg2_slits['position'] = hxd_dg2_slits.z
+		# sim_xrt_m1h['position'] = xrt_m1h.z
+		# sim_xrt_m2h['position'] = xrt_m2h.z		
+		# sim_hdx_dg2_slits['position'] = hxd_dg2_slits.z
 
 		watch = sim.find_element(data['models']['beamline'], 'title', 'Watchpoint')
 		data['report'] = 'watchpointReport{}'.format(watch['id'])
 		sim.run_simulation()
 
-		#did this vecause cannot write data to shared folder on windows vagrant
-		directory = os.path.abspath('../..') + '/data' 
-		if not os.path.exists(directory):
-			os.makedirs(directory)
 		data_file_path = os.path.abspath('../..') + '/data/%s.txt' %uid
 
-		# also creat this directory if it doesnot exists
-		# data_file_path = os.path.dirname(os.path.realpath(__file__)) + '/data/%s.txt' %uid
 		dec = sim.get_datafile().decode('UTF-8')
 		datafile = open(data_file_path, "w+")
 		datafile.write(dec)
@@ -88,6 +83,16 @@ class LclsDetector(Device):
 
 		self.maxim.put(np.amax(data_dict['data']))
 
+
+		hf5 = h5py.File(self._image_file, 'a')
+		hf5.create_dataset(uid, data = data_dict['data'])
+		if 'x_range' in hf5 or 'y_range' in hf5:
+			pass
+		else:
+			hf5['x_range'] = data_dict['x_range']
+			hf5['y_range'] = data_dict['y_range']
+
+		hf5.close()
 		return NullStatus()
 
 	def unstage(self):
