@@ -13,8 +13,12 @@ python scan.py -xi 0 -xf 1 -xs 4 -yi 0 -yf 1 -ys 4 -id stciNEX4
 ```
 the center of slit moves from (0,0) to (1,1) mm with 4 steps on each axes
 
-results of simulation will be saved on images folder. The first image below shows maximum intensity at each point of scan and second image shows what beam looks like at watchpoint for each points of scan.
+results of simulation will be saved on images folder. 
+
+This image shows maximum intensity at each point of scan.
 
 ![scan](./images/scan.png)
+
+Image below shows what beam looks like at watchpoint for each points of scan.
 
 ![scan](./images/scan_intensities.png)
