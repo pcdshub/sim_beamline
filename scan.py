@@ -76,8 +76,6 @@ hf5 = h5py.File(hf5_file, 'r')
 keys = [key for key in hf5.keys()]
 # plot
 fig, ax = plt.subplots(nrows = y_steps, ncols = x_steps)
-fig.tight_layout()
-fig.subplots_adjust(top=0.88)
 c = 0
 for i, row in enumerate(ax):
 	for j, col in enumerate(row):
@@ -85,5 +83,7 @@ for i, row in enumerate(ax):
 		col.set_title("(%d, %d)" %(i+1, j+1))
 		c += 1
 fig.suptitle("x range: %s  &  y range: %s" %(hf5['x_range'][:], hf5['y_range'][:]), fontsize = 10)
+fig.tight_layout()
+fig.subplots_adjust(top=0.88)
 plt.savefig(image_dir + '/scan_intensities.png')
 hf5.close()
