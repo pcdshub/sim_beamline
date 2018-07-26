@@ -14,13 +14,23 @@ import h5py
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-x', '--x_steps', type = int, help ='number of steps in x axis', required = True)
-    parser.add_argument('-y', '--y_steps', type = int, help ='number of steps in y axis', required = True)
+    parser.add_argument('-xi', '--x_initial', type = int, help = 'starting x axis value', required = True)
+    parser.add_argument('-xf', '--x_final', type = int, help = 'final x axis value', required = True)
+    parser.add_argument('-xs', '--x_steps', type = int, help = 'number of steps in x axis', required = True)
+    parser.add_argument('-yi', '--y_initial', type = int, help = 'starting y axis value', required = True)
+    parser.add_argument('-yf', '--y_final', type = int, help = 'final y axis value', required = True)
+    parser.add_argument('-ys', '--y_steps', type = int, help = 'number of steps in y axis', required = True)
+    parser.add_argument('-id', '--simid', type = str, help = 'simulation id, 8 digit from address in browser', required = True)
     args = parser.parse_args()
-    x_arg = args.x_steps
-    y_arg = args.y_steps
-    return x_arg, y_arg
-x_steps, y_steps = get_args()
+    xi_arg = args.x_initial
+    xf_arg = args.x_final
+    xs_arg = args.x_steps
+    yi_arg = args.y_initial
+    yf_arg = args.y_final
+    ys_arg = args.y_steps
+    id_arg = args.simid
+    return xi_arg, xf_arg, xs_arg, yi_arg, yf_arg, ys_arg, id_arg
+xi, xf, x_steps, yi, yf, y_steps, sim_id = get_args()
 
 # to store temporary data
 # tmpdir = os.path.abspath('.')+'/tmp'    # this didnot work because vagrant write to shared files in shared folder. so try 1 step above the shared folder
@@ -52,11 +62,11 @@ class Slit(Device):
 slit = Slit(name = 'slit')
 # hence, the name of motors will be slit_xmotor and slit_ymotor respectively
 
-detector = LclsDetector('slitdetector', slit.xmotor, 'slit_xmotor', slit.ymotor, 'slit_ymotor', sim_id = 'stciNEX4', image_file = hf5_file)
+detector = LclsDetector('slitdetector', slit.xmotor, 'slit_xmotor', slit.ymotor, 'slit_ymotor', sim_id, image_file = hf5_file)
 detector.read_attrs = ['maxim']
 
 # center position of mirror goes from 0 to 1 mm on both axes
-RE(bp.grid_scan([detector], slit.xmotor, 0, 1, x_steps, slit.ymotor, 0, 1, y_steps, False))
+RE(bp.grid_scan([detector], slit.xmotor, xi, xf, x_steps, slit.ymotor, yi, yf, y_steps, False))
 
 plt.savefig(image_dir + '/scan.png')
 plt.clf()
