@@ -7,7 +7,12 @@ matplotlib.use("Agg")  # so that matplotlib doesnot look for display environment
 import matplotlib.pyplot as plt
 import numpy as np
 import sys, os
+<<<<<<< HEAD
 from functions import extract_simulation_data
+=======
+sys.path.insert(0, os.path.dirname(os.path.realpath(__file__))+'/radiosoft-srw_python')
+from data_file_handler import extract_simulation_data
+>>>>>>> 601b8d2afa2664be35939b05a61be5860bcd390e
 
 def get_args():
     parser = argparse.ArgumentParser()
