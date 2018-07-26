@@ -18,3 +18,7 @@ python scan.py -xi 0 -xf 1 -xs 4 -yi 0 -yf 1 -ys 4 -id stciNEX4
 the center of slit moves from (0,0) to (1,1) mm with 4 steps on each axes
 
 results of simulation will be saved on images folder and looks like this
+
+![scan](./images/scan.png)
+
+![scan](./images/scan_intensities.png)
