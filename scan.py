@@ -71,7 +71,7 @@ RE(bp.grid_scan([detector], slit.xmotor, xi, xf, x_steps, slit.ymotor, yi, yf, y
 plt.savefig(image_dir + '/scan.png')
 plt.clf()
 
-# to read hdf5 file
+# plot scan intensities at different steps (by reading info from hdf5 file where they were stored during the scan)
 hf5 = h5py.File(hf5_file, 'r')
 keys = [key for key in hf5.keys()]
 # plot
