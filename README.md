@@ -18,8 +18,8 @@ results of simulation will be saved on images folder.
 
 This image shows maximum intensity at each point of scan.
 
-![scan](./sample_images/scan.png)
+![scan](./sample_images/scan_.png)
 
 Image below shows what beam looks like at watchpoint for each points of scan. The coordinate at top of subplots represents the steps in scan
 
-![scan](./sample_images/scan_intensity.png)
+![scan](./sample_images/scan_intensities.png)
