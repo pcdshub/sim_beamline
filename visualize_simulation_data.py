@@ -34,7 +34,7 @@ def plot_simulation_data(data_file):
     ax1.imshow(img, aspect = 'auto', origin = 'lower')
     ax1.tick_params(labelbottom = False, labelleft = False)
     yh = list(range(0,len(vertical)))
-    ax2.plot(vertical[::-1], yh)
+    ax2.plot(vertical, yh)
     ax2.tick_params(labelleft=False)
     ax3.plot(horizontal)
     ax3.tick_params(labelbottom=False)
