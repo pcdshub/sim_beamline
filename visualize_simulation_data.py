@@ -31,7 +31,7 @@ def plot_simulation_data(data_file):
     ax3 = plt.subplot(gs[2])
     ax4 = plt.subplot(gs[3])
 
-    ax1.imshow(img, aspect = 'auto')
+    ax1.imshow(img, aspect = 'auto', origin = 'lower')
     ax1.tick_params(labelbottom = False, labelleft = False)
     yh = list(range(0,len(vertical)))
     ax2.plot(vertical[::-1], yh)
