@@ -75,17 +75,18 @@ plt.clf()
 hf5 = h5py.File(hf5_file, 'r')
 keys = [key for key in hf5.keys()]
 # plot
+# plt.rcParams['xtick.top'] = plt.rcParams['xtick.labeltop'] = True
 fig, ax = plt.subplots(nrows = y_steps, ncols = x_steps)
 c = 0
-for i, row in enumerate(ax):
+for i, row in enumerate(reversed(ax)):
 	for j, col in enumerate(row):
-		col.imshow(hf5[keys[c]], aspect = 'auto')
-		col.set_title("(%d, %d)" %(i+1, j+1), fontsize = 6)
+		col.imshow(hf5[keys[c]], aspect = 'auto', origin = 'lower')
 		if not (i==0 and j==0):
-			col.tick_params(labelbottom = False, labelleft = False)
+			col.tick_params(labelleft = False, labelbottom = False)
+		else:
+			pass
 		c += 1
-fig.suptitle("x range: %s  &  y range: %s" %(hf5['x_range'][:], hf5['y_range'][:]), fontsize = 10)
-fig.tight_layout()
-fig.subplots_adjust(top=0.88)
+fig.suptitle("x range: %s  &  y range: %s \nscan starts from bottom left" %(hf5['x_range'][:], hf5['y_range'][:]), fontsize = 8)
+fig.subplots_adjust(top = 0.88, wspace=0.01, hspace=0.01)
 plt.savefig(image_dir + '/scan_intensities.png')
 hf5.close()
