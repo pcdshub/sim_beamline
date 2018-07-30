@@ -1,4 +1,4 @@
-Install sirepo on machine
+Install sirepo.
 
 SSH to sirepo server
 ```export SIREPO_SERVER_ENABLE_BLUESKY=1```can also export this to bashrc of vagrant server so its not needed to do this everytime. Then,
