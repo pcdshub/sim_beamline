@@ -10,9 +10,9 @@ The weblink has 8 digit id which is the simulation to be used for simulation.
 
 To run the scan run scan.py file
 ```
-python scan.py -xi 0 -xf 1 -xs 4 -yi 0 -yf 1 -ys 4 -id stciNEX4
+python scan.py -xi 0 -xf 1 -xs 6 -yi 0 -yf 1 -ys 6 -id stciNEX4
 ```
-the center of slit moves from (0,0) to (1,1) mm with 4 steps on each axes
+the center of slit moves from (-1,-1) to (1,1) mm with 6 steps on each axes
 
 results of simulation will be saved on images folder. 
 
