@@ -1,1 +1,7 @@
-# sir
+requests
+numpy
+matplotlib
+h5py
+bluesky
+ophyd
+databroker
