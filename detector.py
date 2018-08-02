@@ -30,7 +30,7 @@ class LclsDetector(Device):
 	def trigger(self):
 		super().trigger()
 
-		uid = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S.%f")
+		uid = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S.%f")
 		sim = Simulate(self._sirepo_sim_address)
 		data = sim.auth('srw', self._sim_id)
 
