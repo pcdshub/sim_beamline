@@ -73,13 +73,13 @@ class LclsDetector(Device):
 		data['report'] = 'watchpointReport{}'.format(watch['id'])
 		sim.run_simulation()
 
-# 		data_file_path = os.path.abspath('.') + '/data/%s.txt' %uid
+		data_file_path = os.path.abspath('.') + '/data/%s.txt' %uid
 
 		dec = sim.get_datafile().decode('UTF-8')
 		datafile = open(data_file_path, "w+")
 		datafile.write(dec)
 		datafile.close()
-		data_dict = extract_simulation_data('./data/%s.txt' %uid)
+		data_dict = extract_simulation_data(data_file_path)
 
 		self.maxim.put(np.amax(data_dict['data']))
 
