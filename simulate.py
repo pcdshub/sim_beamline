@@ -1,4 +1,4 @@
-# this file is taken from
+# this file, which contains method to run the simulation, is taken from
 # https://github.com/NSLS-II/sirepo-bluesky/blob/master/sirepo_bluesky.py
 
 import requests
