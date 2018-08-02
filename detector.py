@@ -73,7 +73,7 @@ class LclsDetector(Device):
 		data['report'] = 'watchpointReport{}'.format(watch['id'])
 		sim.run_simulation()
 
-		data_file_path = os.path.abspath('../..') + '/data/%s.txt' %uid
+		data_file_path = os.path.abspath('.') + '/data/%s.txt' %uid
 
 		dec = sim.get_datafile().decode('UTF-8')
 		datafile = open(data_file_path, "w+")
