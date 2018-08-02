@@ -67,7 +67,7 @@ detector.read_attrs = ['maxim']
 # center position of mirror goes from 0 to 1 mm on both axes
 RE(bp.grid_scan([detector], slit.xmotor, xi, xf, x_steps, slit.ymotor, yi, yf, y_steps, False))
 
-plt.savefig(image_dir + '/scan_%s.png' %uid)
+plt.savefig(image_dir + '/scan_max_%s.png' %uid)
 plt.clf()
 
 # plot scan intensities at different steps (by reading info from hdf5 file where they were stored during the scan)
@@ -87,5 +87,5 @@ for i, row in enumerate(reversed(ax)):
 		c += 1
 fig.suptitle("x range: %s  &  y range: %s \nscan starts from bottom left" %(hf5['x_range'][:], hf5['y_range'][:]), fontsize = 8)
 fig.subplots_adjust(top = 0.88, wspace=0.01, hspace=0.01)
-plt.savefig(image_dir + '/scan_intensities_%s.png' %uid)
+plt.savefig(image_dir + '/scan_beam_%s.png' %uid)
 hf5.close()
