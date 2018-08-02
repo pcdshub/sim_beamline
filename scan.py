@@ -32,7 +32,7 @@ def get_args():
 	return xi_arg, xf_arg, xs_arg, yi_arg, yf_arg, ys_arg, id_arg
 xi, xf, x_steps, yi, yf, y_steps, sim_id = get_args()
 
-uid = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+uid = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 data_dir = os.path.abspath('.') + '/data' 
 if not os.path.exists(data_dir):
 	os.makedirs(data_dir)
