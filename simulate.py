@@ -1,3 +1,6 @@
+# this file is taken from
+# https://github.com/NSLS-II/sirepo-bluesky/blob/master/sirepo_bluesky.py
+
 import requests
 import time
 
