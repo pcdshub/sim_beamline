@@ -32,9 +32,7 @@ def get_args():
 	return xi_arg, xf_arg, xs_arg, yi_arg, yf_arg, ys_arg, id_arg
 xi, xf, x_steps, yi, yf, y_steps, sim_id = get_args()
 
-# to store temporary data
-# tmpdir = os.path.abspath('.')+'/tmp'    # this didnot work because vagrant write to shared files in shared folder. so try 1 step above the shared folder
-data_dir = os.path.abspath('../..') + '/data' 
+data_dir = os.path.abspath('.') + '/data' 
 if not os.path.exists(data_dir):
 	os.makedirs(data_dir)
 image_dir = os.path.abspath('.') + '/images' 
