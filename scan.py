@@ -62,7 +62,7 @@ slit = Slit(name = 'slit')
 # hence, the name of motors will be slit_xmotor and slit_ymotor respectively
 
 detector = LclsDetector('slitdetector', slit.xmotor, 'slit_xmotor', slit.ymotor, 'slit_ymotor', sim_id, image_file = hf5_file)
-detector.read_attrs = ['maxim']
+detector.read_attrs = ['maxim']  # name of component for read()
 
 # center position of mirror goes from 0 to 1 mm on both axes
 RE(bp.grid_scan([detector], slit.xmotor, xi, xf, x_steps, slit.ymotor, yi, yf, y_steps, False))
