@@ -32,6 +32,7 @@ def get_args():
 	return xi_arg, xf_arg, xs_arg, yi_arg, yf_arg, ys_arg, id_arg
 xi, xf, x_steps, yi, yf, y_steps, sim_id = get_args()
 
+uid = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M")
 data_dir = os.path.abspath('.') + '/data' 
 if not os.path.exists(data_dir):
 	os.makedirs(data_dir)
@@ -66,7 +67,7 @@ detector.read_attrs = ['maxim']
 # center position of mirror goes from 0 to 1 mm on both axes
 RE(bp.grid_scan([detector], slit.xmotor, xi, xf, x_steps, slit.ymotor, yi, yf, y_steps, False))
 
-plt.savefig(image_dir + '/scan.png')
+plt.savefig(image_dir + '/scan_%s.png' %uid)
 plt.clf()
 
 # plot scan intensities at different steps (by reading info from hdf5 file where they were stored during the scan)
@@ -86,5 +87,5 @@ for i, row in enumerate(reversed(ax)):
 		c += 1
 fig.suptitle("x range: %s  &  y range: %s \nscan starts from bottom left" %(hf5['x_range'][:], hf5['y_range'][:]), fontsize = 8)
 fig.subplots_adjust(top = 0.88, wspace=0.01, hspace=0.01)
-plt.savefig(image_dir + '/scan_intensities.png')
+plt.savefig(image_dir + '/scan_intensities_%s.png' %uid)
 hf5.close()
