@@ -40,7 +40,7 @@ image_dir = os.path.abspath('.') + '/images'
 if not os.path.exists(image_dir):
 	os.makedirs(image_dir)
 # to store images from each step of scan
-hf5_file = data_dir + "/images.h5"
+hf5_file = data_dir + "/%s_images.h5" %uid
 hf5 = h5py.File(hf5_file, 'w')
 hf5.close()
 
